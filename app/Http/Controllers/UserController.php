@@ -67,6 +67,7 @@ class UserController extends Controller
             if(!$data->email_verified_at){
                 $this->code = 200;
                 $this->message = "Sukses melakukan konfirmasi email";
+
                 $data->email_verified_at = Carbon::now();
                 $data->remember_token = null;
                 $data->save();
@@ -91,6 +92,7 @@ class UserController extends Controller
 
         $data = [];
         $this->code = 404;
+        $this->message = "Email atau password anda salah";
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $get_user = User::where('email', '=', $request->email)->first();
@@ -103,12 +105,35 @@ class UserController extends Controller
                 } else {
                     $this->message = "Email belum diverifikasi";
                 }
-            } else {
-                $this->message = "Email atau password anda salah";
             }
         }
 
         return Api::apiRespond($this->code, $data, $this->message);
+    }
+
+    public function resend_email_code(Request $request){
+        $data = User::where('email', $request->email)->first();
+
+        $this->message = "Email tidak valid";
+        $this->code = 404;
+
+        $code = rand(100000,999999);
+
+        if ($data){
+            if(!$data->email_verified_at){
+                $this->code = 200;
+                $this->message = "Sukses mengirimkan kode konfirmasi";
+
+                $data->remember_token = $code;
+                $data->save();
+
+                Mail::to($request->email)->send(new EmailCodeVerification($code));
+            } else {
+                $this->message = "Email sudah diverifikasi";
+            }
+        }
+
+        return Api::apiRespond($this->code, [], $this->message);
     }
 
     public function logout()
