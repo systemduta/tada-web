@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\MerchantCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/validate_email/{id}', [UserController::class, 'validate_email']);
     Route::get('/logout', [UserController::class, 'logout']);
 });
+
+Route::apiResource('/merchant', MerchantController::class);
+Route::apiResource('/merchant_category', MerchantCategoryController::class);

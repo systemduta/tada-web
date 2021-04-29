@@ -136,6 +136,10 @@ class UserController extends Controller
         return Api::apiRespond($this->code, [], $this->message);
     }
 
+    public function reset_password(){
+        
+    }
+
     public function logout()
     {
         Auth::logout();
