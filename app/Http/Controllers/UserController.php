@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use Exception;
+use File;
 
 class UserController extends Controller
 {
@@ -26,6 +28,35 @@ class UserController extends Controller
     {
         $data = auth()->guard('api')->user();
         return Api::apiRespond($this->code, $data, $this->message);
+    }
+
+    public function update(Request $request){
+        try {
+            $id = auth()->guard('api')->user()->id;
+            $response = User::where('id', $id)->first();
+
+            if($request->photo){
+                $photo = $request->file('photo');
+                $photo->move('user/photo/', $photo->getClientOriginalName());
+                $filename = public_path('/user/photo/'. $response->photo);
+
+                if(File::exists($filename)) {
+                    File::delete($filename);
+                }
+
+                $response->photo = $photo->getClientOriginalName();
+                $response->save();
+
+            }
+
+            $response = $response->fill($request->input())->save();
+        } catch (Exception $e) {
+                $this->code = 500;
+                $this->message = $e->getMessage();
+                $response = [];
+        }
+
+        return Api::apiRespond($this->code, $response, $this->message);
     }
 
     public function register(Request $request)
@@ -101,7 +132,9 @@ class UserController extends Controller
                     $user = Auth::user();
                     $data['user'] = $user;
                     $data['token'] = $user->createToken('maesaintern')->accessToken;
+
                     $this->code = 200;
+                    $this->message = "success";
                 } else {
                     $this->message = "Email belum diverifikasi";
                 }

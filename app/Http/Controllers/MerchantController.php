@@ -115,12 +115,12 @@ class MerchantController extends Controller
                 $background->move('merchant/background/', $background->getClientOriginalName());
                 $filename = public_path('/merchant/background/'. $response->background);
 
-                $response->background = $background->getClientOriginalName();
-                $response->save();
-
                 if(File::exists($filename)) {
                     File::delete($filename);
                 }
+
+                $response->background = $background->getClientOriginalName();
+                $response->save();
             }
 
             $response = $response->fill($request->input())->save();
