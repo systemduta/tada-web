@@ -32,20 +32,22 @@ class UserController extends Controller
 
     public function update(Request $request){
         try {
-            $id = auth()->guard('api')->user()->id;
-            $response = User::where('id', $id)->first();
+            $response = User::where('id', auth()->guard('api')->user()->id)->first();
 
             if($request->file('photo')){
                 $photo = $request->file('photo');
-                $photo->move('user/photo/', $photo->getClientOriginalName());
-                $filename = public_path('/user/photo/'. $response->photo);
+                if($response->photo != $photo->getClientOriginalName()) {
+                    $photo = $request->file('photo');
+                    $photo->move('user/photo/', $photo->getClientOriginalName());
+                    $filename = public_path('/user/photo/' . $response->photo);
 
-                if(File::exists($filename)) {
-                    File::delete($filename);
+                    $response->photo = $photo->getClientOriginalName();
+                    $response->save();
+
+                    if (File::exists($filename)) {
+                        File::delete($filename);
+                    }
                 }
-
-                $response->photo = $photo->getClientOriginalName();
-                $response->save();
             }
 
             $response = $response->fill($request->input())->save();
