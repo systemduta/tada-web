@@ -21,7 +21,18 @@ class User extends Authenticatable
         'name', 'phone', 'email', 'password',
         'remember_token', 'photo', 'gender',
         'tanggal_lahir', 'email_verified_at',
+        'province_id', 'city_id'
     ];
+
+    public function province()
+    {
+        return $this->hasOne(Province::class, "id", "province_id");
+    }
+
+    public function city()
+    {
+        return $this->hasOne(Regency::class, "id", "city_id");
+    }
 
     /**
      * The attributes that should be hidden for arrays.

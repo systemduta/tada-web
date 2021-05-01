@@ -68,12 +68,11 @@ class MerchantCategoryController extends Controller
             if ($e instanceof ModelNotFoundException) {
                 $this->code = 404;
                 $this->message = "Data Not Exist";
-                $response = [];
             } else {
                 $this->code = 500;
                 $this->message = $e->getMessage();
-                $response = [];
             }
+            $response = [];
         }
         return Api::apiRespond($this->code, $response, $this->message);
     }
@@ -95,12 +94,11 @@ class MerchantCategoryController extends Controller
             if ($e instanceof ModelNotFoundException) {
                 $this->code = 404;
                 $this->message = "Data Not Exist";
-                $response = [];
             } else {
                 $this->code = 500;
                 $this->message = $e->getMessage();
-                $response = [];
             }
+            $response = [];
         }
         return Api::apiRespond($this->code, $response, $this->message);
     }
@@ -120,12 +118,11 @@ class MerchantCategoryController extends Controller
             if ($e instanceof ModelNotFoundException) {
                 $this->code = 404;
                 $this->message = "Data Not Exist";
-                $response = [];
             } else {
                 $this->code = 500;
                 $this->message = $e->getMessage();
-                $response = [];
             }
+            $response = [];
         }
         return Api::apiRespond($this->code, $response, $this->message);
     }

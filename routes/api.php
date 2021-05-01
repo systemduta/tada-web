@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\MerchantCategoryController;
+use App\Http\Controllers\RegionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,9 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/logout', [UserController::class, 'logout']);
 });
 
-
+Route::get('/province', [RegionController::class, 'get_province']);
+Route::get('/city/{id}', [RegionController::class, 'get_city']);
 
 Route::apiResource('/merchant', MerchantController::class);
+Route::apiResource('/transaction', MerchantController::class);
 Route::apiResource('/merchant_category', MerchantCategoryController::class);

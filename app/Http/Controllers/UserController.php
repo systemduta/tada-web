@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Validator;
 use Exception;
 use File;
-
+use App\Http\Resources\UserResource;
 class UserController extends Controller
 {
     private $code;
@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = auth()->guard('api')->user();
+        $data = new UserResource(auth()->guard('api')->user());
         return Api::apiRespond($this->code, $data, $this->message);
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
             $id = auth()->guard('api')->user()->id;
             $response = User::where('id', $id)->first();
 
-            if($request->photo){
+            if($request->file('photo')){
                 $photo = $request->file('photo');
                 $photo->move('user/photo/', $photo->getClientOriginalName());
                 $filename = public_path('/user/photo/'. $response->photo);
@@ -46,7 +46,6 @@ class UserController extends Controller
 
                 $response->photo = $photo->getClientOriginalName();
                 $response->save();
-
             }
 
             $response = $response->fill($request->input())->save();
