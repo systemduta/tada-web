@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Http\Resources\MerchantResource;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Merchant;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use App\Models\Voucher;
 use Exception;
-use File;
 use Api;
-use Illuminate\Support\Facades\Auth;
+use File;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class MerchantController extends Controller
+class VoucherController extends Controller
 {
     private $code;
     private $message;
@@ -32,14 +31,36 @@ class MerchantController extends Controller
     public function index()
     {
         try {
-            $response = Merchant::query();
-            $pagination = 8;
+            $response = Voucher::where('merchant_id', request()->query("merchant_id"))->get();
+        } catch (Exception $e) {
+            $this->code = 500;
+            $this->message = $e->getMessage();
+            $response = [];
+        }
+        return Api::apiRespond($this->code, $response, $this->message);
+    }
 
-            if(request()->has("search")){
-                $response->where('name', 'like', "%" . request()->query("search") . "%");
-            }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            $background = $request->file('background');
+            $background->move('merchant/voucher/background', $background->getClientOriginalName());
 
-            $response = $response->get();
+            $response = Voucher::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'merchant_id' => Merchant::where('user_id', auth()->guard('api')->user()->id)->first()->id,
+                'min_transaction' => $request->min_transaction,
+                'value' => $request->value,
+                'expiration' => $request->expiration,
+                'background' => $background->getClientOriginalName()
+            ]);
         } catch (Exception $e) {
             $this->code = 500;
             $this->message = $e->getMessage();
@@ -51,14 +72,13 @@ class MerchantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $id
      * @return Response
      */
     public function show($id)
     {
         try {
-            $response = Merchant::findOrFail($id);
-            $response = new MerchantResource($response);
+            $response = Voucher::findOrFail($id);
         } catch (ModelNotFoundException $e) {
             if ($e instanceof ModelNotFoundException) {
                 $this->code = 404;
@@ -75,20 +95,20 @@ class MerchantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         try {
-            $response = Merchant::findOrFail($id);
+            $response = Voucher::findOrFail($id);
 
             if($request->file('background')){
                 $background = $request->file('background');;
                 if($response->background != $background->getClientOriginalName()){
-                    $background->move('merchant/background/', $background->getClientOriginalName());
-                    $filename = public_path('/merchant/background/'. $response->background);
+                    $background->move('voucher/background/', $background->getClientOriginalName());
+                    $filename = public_path('/voucher/background/'. $response->background);
 
                     if(File::exists($filename)) {
                         File::delete($filename);
@@ -116,20 +136,19 @@ class MerchantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return void
      */
     public function destroy($id)
     {
         try{
-            $response = Merchant::findOrFail($id);
-            $filename = public_path('/merchant/background/'. $response->background);
+            $response = Voucher::findOrFail($id);
+            $filename = public_path('/voucher/background/'. $response->background);
 
             if(File::exists($filename)) {
                 File::delete($filename);
             }
 
-            User::findOrFail($response->id)->delete();
             $response = $response->delete();
         } catch (ModelNotFoundException $e) {
             if ($e instanceof ModelNotFoundException) {

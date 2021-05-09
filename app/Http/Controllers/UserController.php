@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Api;
+use App\Http\Resources\UserResource;
 use App\Mail\EmailCodeVerification;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
+use App\Models\Merchant;
+use Carbon\Carbon;
+use App\Models\User;
 use Validator;
 use Exception;
 use File;
-use App\Http\Resources\UserResource;
+use Api;
+
 class UserController extends Controller
 {
     private $code;
@@ -28,6 +30,83 @@ class UserController extends Controller
     {
         $data = new UserResource(auth()->guard('api')->user());
         return Api::apiRespond($this->code, $data, $this->message);
+    }
+
+    public function register(Request $request, $status)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
+            'password' => [
+                'required', 'string', 'min:8', 'confirmed', 'min:9',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&.s]/']
+        ]);
+
+        if ($validator->fails()) {
+            return Api::apiResponseValidationFails('Validation error messages!', $validator->errors()->all());
+        }
+
+        $code = rand(100000,999999);
+
+        $user = User::create([
+            'email'=> $request->email,
+            'password' => Bcrypt($request->password),
+            'remember_token' => $code
+        ]);
+
+        if($status == 'merchant'){
+            $user->status = 1;
+            $user->save();
+        }
+
+        $this->message = "Sukses mendaftar akun, silahkan cek email untuk verifikasi";
+        Mail::to($request->email)->send(new EmailCodeVerification($code));
+
+        return $user;
+    }
+
+    public function register_user(Request $request)
+    {
+        $user = $this->register($request, 'user');
+        return Api::apiRespond($this->code, $user, $this->message);
+    }
+
+    public function register_merchant(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'unique:merchants'],
+                'short_description' => ['required', 'string'],
+                'long_description' => ['required', 'string'],
+                'category_id' => ['required', 'integer'],
+                'background' => ['required', 'file']
+            ]);
+
+            if ($validator->fails()) {
+                return Api::apiResponseValidationFails('Validation error messages!', $validator->errors()->all());
+            }
+
+            $response['user'] = $this->register($request, 'merchant');
+
+            $background = $request->file('background');
+            $background->move('merchant/background', $background->getClientOriginalName());
+
+            $response['merchant'] = Merchant::create([
+                'user_id' =>  $response['user']->id,
+                'name' => $request->name_merchant,
+                'short_description' => $request->short_description,
+                'long_description' => $request->long_description,
+                'category_id' => $request->category_id,
+                'background' => $background->getClientOriginalName()
+            ]);
+        } catch (Exception $e) {
+            $this->code = 500;
+            $this->message = $e->getMessage();
+            $response = [];
+        }
+        return Api::apiRespond($this->code, $response, $this->message);
     }
 
     public function update(Request $request){
@@ -52,42 +131,12 @@ class UserController extends Controller
 
             $response = $response->fill($request->input())->save();
         } catch (Exception $e) {
-                $this->code = 500;
-                $this->message = $e->getMessage();
-                $response = [];
+            $this->code = 500;
+            $this->message = $e->getMessage();
+            $response = [];
         }
 
         return Api::apiRespond($this->code, $response, $this->message);
-    }
-
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
-            'password' => [
-                'required', 'string', 'min:8', 'confirmed', 'min:9',
-                'regex:/[a-z]/',
-                'regex:/[A-Z]/',
-                'regex:/[0-9]/',
-                'regex:/[@$!%*#?&.s]/']
-        ]);
-
-        if ($validator->fails()) {
-            return Api::apiResponseValidationFails('Validation error messages!', $validator->errors()->all());
-        }
-
-        $code = rand(100000,999999);
-
-        $user = User::create([
-            'email'=> $request->email,
-            'password' => Bcrypt($request->password),
-            'remember_token' => $code
-        ]);
-
-        $this->message = "Sukses mendaftar akun, silahkan cek email untuk verifikasi";
-        Mail::to($request->email)->send(new EmailCodeVerification($code));
-
-        return Api::apiRespond($this->code, $user, $this->message);
     }
 
     public function validate_email($id){
@@ -156,7 +205,7 @@ class UserController extends Controller
         if ($data){
             if(!$data->email_verified_at){
                 $this->code = 200;
-                $this->message = "Sukses mengirimkan kode konfirmasi";
+                $this->message = "Sukses mengirimkan ulang kode konfirmasi";
 
                 $data->remember_token = $code;
                 $data->save();

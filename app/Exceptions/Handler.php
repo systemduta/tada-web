@@ -3,7 +3,12 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
+use Api;
 
 class Handler extends ExceptionHandler
 {
@@ -37,5 +42,32 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param Request $request
+     * @param Throwable $e
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof MethodNotAllowedHttpException) {
+            $code = 405;
+            $message = "Method Not Allowed";
+            $response = [];
+            return Api::apiRespond($code, $response, $message);
+        }
+
+        else if ($e instanceof NotFoundHttpException){
+            $code = 404;
+            $message = "Endpoint Not Found";
+            $response = [];
+            return Api::apiRespond($code, $response, $message);
+        }
+
+        return parent::render($request, $e);
     }
 }

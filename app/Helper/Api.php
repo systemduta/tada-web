@@ -9,7 +9,7 @@ class Api {
     public static function apiRespond($code, $data, $message) {
         if($code == 500){
             $response['status'] = 500;
-            $response['message'] = "An Error Has Occured";
+            $response['message'] = $message;
             $response['data'] = $data;
         }else{
             $response['status'] = $code;

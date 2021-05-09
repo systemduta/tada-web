@@ -5,13 +5,13 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class MerchantListCollection extends ResourceCollection
+class TransactionCollection extends ResourceCollection
 {
 
     /**
      * set aim collection
      */
-    public $collects = 'App\Http\Resources\MerchantResource';
+    public $collects = 'App\Http\Resources\TransactionResource';
 
     /**
      * Transform the resource collection into an array.

@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Voucher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['merchant_id', 'user_id'];
+    public $fillable = [
+      'merchant_id', 'min_transaction', 'name', 'background',
+      'value', 'expiration', 'description'
+    ];
 
     public function merchant()
     {
