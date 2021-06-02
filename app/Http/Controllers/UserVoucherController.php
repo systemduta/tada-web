@@ -19,7 +19,7 @@ class UserVoucherController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in store.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,7 +41,7 @@ class UserVoucherController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in store.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Voucher  $voucher
@@ -53,7 +53,7 @@ class UserVoucherController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from store.
      *
      * @param  \App\Models\Voucher  $voucher
      * @return \Illuminate\Http\Response

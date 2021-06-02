@@ -37,7 +37,7 @@ class MerchantCategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in store.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -78,7 +78,7 @@ class MerchantCategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in store.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -104,7 +104,7 @@ class MerchantCategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from store.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

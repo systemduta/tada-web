@@ -44,7 +44,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in store.
      *
      * @param Request $request
      * @return Response
@@ -91,7 +91,7 @@ class TransactionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from store.
      *
      * @param  int  $id
      * @return Response

@@ -73,7 +73,7 @@ class MerchantController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in store.
      *
      * @param Request $request
      * @param  int  $id
@@ -114,7 +114,7 @@ class MerchantController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from store.
      *
      * @param  int  $id
      * @return Response

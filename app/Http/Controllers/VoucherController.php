@@ -41,7 +41,7 @@ class VoucherController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in store.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return Response
@@ -93,7 +93,7 @@ class VoucherController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in store.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
@@ -134,7 +134,7 @@ class VoucherController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from store.
      *
      * @param $id
      * @return void
