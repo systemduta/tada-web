@@ -1,8 +1,8 @@
 import axios from "axios";
 import Path from './path';
 
-axios.defaults.baseURL = 'https://api.maesagroup.co.id/api';
-// axios.defaults.baseURL = '/';
+// axios.defaults.baseURL = 'https://api.maesagroup.co.id/api';
+axios.defaults.baseURL = '/api';
 axios.defaults.headers.post['Content-Type'] = Path.header.content_type;
 axios.defaults.headers.post['Accept'] = Path.header.accept;
 
@@ -24,28 +24,25 @@ const api = {
             return axios.post(Path.auth.resend_code, data);
         },
     },
-    company: {
+    voucher: {
         index: (params) => {
-            return axios.get(Path.company.base, {
+            return axios.get(Path.voucher.base, {
                 params: params
             });
         },
         show: (id, params) => {
-            return axios.get(Path.company.detail.replace('{id}', id), {
+            return axios.get(Path.voucher.detail.replace('{id}', id), {
                 params: params
             });
         },
         store: (data) => {
-            return axios.post(Path.company.base, data);
+            return axios.post(Path.voucher.base, data);
         },
         update: (id,data) => {
-            return axios.post(Path.company.detail.replace('{id}', id), data);
+            return axios.post(Path.voucher.detail.replace('{id}', id), data);
         },
         destroy: (id) => {
-            return axios.delete(Path.company.detail.replace('{id}', id))
-        },
-        join: (data) => {
-            return axios.post(Path.company.join, data);
+            return axios.delete(Path.voucher.detail.replace('{id}', id))
         },
     },
     customer: {

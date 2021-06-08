@@ -30,8 +30,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
+        $merchant_id = Merchant::where('user_id', auth()->guard('api')->user()->id)->first()->id;
         try {
-            $response = Voucher::where('merchant_id', request()->query("merchant_id"))->get();
+            $response = Voucher::where('merchant_id', $merchant_id)->get();
         } catch (Exception $e) {
             $this->code = 500;
             $this->message = $e->getMessage();

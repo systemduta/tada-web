@@ -5,7 +5,9 @@ import Home from '../pages/Home.vue';
 import Login from '../pages/auth/Login.vue';
 import Register from "../pages/auth/Register";
 import EmailValidation from "../pages/auth/EmailValidation";
+import VoucherIndex from "../pages/vouchers/VoucherIndex";
 import Store from '../store';
+import AddEditVoucher from "../pages/vouchers/AddEditVoucher";
 
 let routes = [
     {
@@ -17,6 +19,24 @@ let routes = [
                 path: '/',
                 component: Dashboard,
                 name: 'dashboard',
+                meta: {requiresAuth: true},
+            },
+            {
+                path: '/voucher',
+                component: VoucherIndex,
+                name: 'voucherIndex',
+                meta: {requiresAuth: true},
+            },
+            {
+                path: '/voucher/add',
+                component: AddEditVoucher,
+                name: 'voucherAdd',
+                meta: {requiresAuth: true},
+            },
+            {
+                path: '/voucher/edit/:id',
+                component: AddEditVoucher,
+                name: 'voucherEdit',
                 meta: {requiresAuth: true},
             },
             // {

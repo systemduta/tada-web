@@ -106,6 +106,7 @@ class UserController extends Controller
             $this->message = $e->getMessage();
             $response = [];
         }
+
         return Api::apiRespond($this->code, $response, $this->message);
     }
 
@@ -220,7 +221,7 @@ class UserController extends Controller
     }
 
     public function reset_password(){
-        
+
     }
 
     public function logout()

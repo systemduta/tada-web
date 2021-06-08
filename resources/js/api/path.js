@@ -11,10 +11,9 @@ const path = {
         validate: '/user/validate_email/{code}',
         resend_code: '/user/resend_email_code'
     },
-    company: {
-        base: '/companies',
-        detail: '/companies/{id}',
-        join: '/companies/join'
+    voucher: {
+        base: '/admin/merchant_voucher',
+        detail: '/admin/merchant_voucher/{id}'
     },
     customer: {
         base: '/customers',

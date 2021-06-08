@@ -178,3 +178,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@import 'http://tada-api.test/layout_assets/css/auth_style.css';
+</style>

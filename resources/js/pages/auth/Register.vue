@@ -143,7 +143,7 @@ export default {
         }
     },
     methods: {
-        getMerchantCategory () {
+        fetchMerchantCategory () {
             this.$set(this,'isLoading',true);
             Api.merchant_category.index().then((res)=>{
                 this.$set(this,'merchant_categories', res.data.data);
@@ -171,6 +171,17 @@ export default {
             }
             return photo;
         },
+        clearForm() {
+            this.$set(this.register,'email',null);
+            this.$set(this.register,'password',null);
+            this.$set(this.register,'password_confirmation',null);
+            this.$set(this.register,'name',null);
+            this.$set(this.register,'name_merchant',null);
+            this.$set(this.register,'short_description',null);
+            this.$set(this.register,'long_description',null);
+            this.$set(this.register,'category_id',null);
+            this.$set(this.register,'background',null);
+        },
         convertToFormData: function () {
             let data = new FormData;
             ['email','password','password_confirmation','name','name_merchant','short_description','long_description',
@@ -186,7 +197,7 @@ export default {
                 this.$set(this,'isLoading',false);
                 this.clearForm();
                 toastr.options.progressBar = true;
-                toastr.success('Your merchant has been successfully registered','Success Register');
+                toastr.success('Your merchant has been successfully registered','Successful registration');
                 this.$router.push("/login");
             }).catch((err)=>{
                 toastr.options.progressBar = true;
@@ -194,17 +205,6 @@ export default {
                 this.$set(this,'isLoading',false);
             });
         },
-        clearForm() {
-            this.$set(this.register,'email',null);
-            this.$set(this.register,'password',null);
-            this.$set(this.register,'password_confirmation',null);
-            this.$set(this.register,'name',null);
-            this.$set(this.register,'name_merchant',null);
-            this.$set(this.register,'short_description',null);
-            this.$set(this.register,'long_description',null);
-            this.$set(this.register,'category_id',null);
-            this.$set(this.register,'background',null);
-        }
     },
     computed: {
         isPending(){
@@ -218,11 +218,11 @@ export default {
         }
     },
     mounted() {
-        this.getMerchantCategory();
+        this.fetchMerchantCategory();
     }
 }
 </script>
 
 <style scoped>
-
+@import 'http://tada-api.test/layout_assets/css/auth_style.css';
 </style>

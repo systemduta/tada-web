@@ -1,10 +1,9 @@
 <template>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <navbar></navbar>
-        <sidebar></sidebar>
-
 <!--        main content-->
         <div class="app-main">
+            <sidebar></sidebar>
             <router-view></router-view>
         </div>
 <!--        end of main content-->
@@ -41,3 +40,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@import 'http://tada-api.test/layout_assets/css/main.css';
+</style>
