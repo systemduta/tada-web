@@ -13,10 +13,11 @@
                         <router-link :to="{ name: 'voucherIndex'}">
                             <i class="metismenu-icon pe-7s-cash"></i> Voucher
                         </router-link>
-<!--                        <a href="index.html" class="mm-active">-->
-<!--                            <i class="metismenu-icon pe-7s-rocket"></i>-->
-<!--                            Dashboard-->
-<!--                        </a>-->
+                    </li>
+                    <li>
+                        <router-link :to="{ name: 'createTransaction'}">
+                            <i class="metismenu-icon pe-7s-loop"></i> Transaction
+                        </router-link>
                     </li>
                 </ul>
             </div>

@@ -19,15 +19,15 @@
                                 </div>
                                 <div class="position-relative form-group">
                                     <label for="minTrx" class="">Minimal Transaction</label>
-                                    <input name="minTrx" id="minTrx" type="text" class="form-control" v-model="payload.min_transaction">
+                                    <input name="minTrx" id="minTrx" type="number" class="form-control" v-model="payload.min_transaction">
                                 </div>
                                 <div class="position-relative form-group">
                                     <label for="voucherValue" class="">Value</label>
-                                    <input name="voucherValue" id="voucherValue" type="text" class="form-control" v-model="payload.value">
+                                    <input name="voucherValue" id="voucherValue" type="number" class="form-control" v-model="payload.value">
                                 </div>
                                 <div class="position-relative form-group">
                                     <label for="voucherExpiration" class="">Expiration</label>
-                                    <input name="voucherExpiration" id="voucherExpiration" type="text" class="form-control" v-model="payload.expiration">
+                                    <input name="voucherExpiration" id="voucherExpiration" type="number" class="form-control" v-model="payload.expiration">
                                 </div>
                                 <div class="position-relative form-group">
                                     <label for="voucherBackground" class="">Background</label>

@@ -49,6 +49,7 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
+        $merchant = Merchant::where('user_id', auth()->guard('api')->user()->id)->first();
         try {
             $background = $request->file('background');
             $background->move('merchant/voucher/background', $background->getClientOriginalName());
@@ -56,7 +57,7 @@ class VoucherController extends Controller
             $response = Voucher::create([
                 'name' => $request->name,
                 'description' => $request->description,
-                'merchant_id' => Merchant::where('user_id', auth()->guard('api')->user()->id)->first()->id,
+                'merchant_id' => $merchant ? $merchant->id : null,
                 'min_transaction' => $request->min_transaction,
                 'value' => $request->value,
                 'expiration' => $request->expiration,

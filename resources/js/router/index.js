@@ -8,6 +8,7 @@ import EmailValidation from "../pages/auth/EmailValidation";
 import VoucherIndex from "../pages/vouchers/VoucherIndex";
 import Store from '../store';
 import AddEditVoucher from "../pages/vouchers/AddEditVoucher";
+import CreateTransaction from "../pages/transactions/CreateTransaction";
 
 let routes = [
     {
@@ -37,6 +38,12 @@ let routes = [
                 path: '/voucher/edit/:id',
                 component: AddEditVoucher,
                 name: 'voucherEdit',
+                meta: {requiresAuth: true},
+            },
+            {
+                path: '/create_transaction',
+                component: CreateTransaction,
+                name: 'createTransaction',
                 meta: {requiresAuth: true},
             },
             // {

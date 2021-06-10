@@ -62,7 +62,7 @@ class UserController extends Controller
         }
 
         $this->message = "Sukses mendaftar akun, silahkan cek email untuk verifikasi";
-        Mail::to($request->email)->send(new EmailCodeVerification($code));
+//        Mail::to($request->email)->send(new EmailCodeVerification($code));
 
         return $user;
     }

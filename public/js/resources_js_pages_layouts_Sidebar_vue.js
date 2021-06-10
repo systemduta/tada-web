@@ -37,6 +37,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar"
 });
@@ -196,7 +197,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "metismenu-icon pe-7s-rocket" }),
-                    _vm._v(" Dashboard\n                        ")
+                    _vm._v(" Dashboard\n                    ")
                   ]
                 )
               ],
@@ -208,8 +209,23 @@ var render = function() {
               [
                 _c("router-link", { attrs: { to: { name: "voucherIndex" } } }, [
                   _c("i", { staticClass: "metismenu-icon pe-7s-cash" }),
-                  _vm._v(" Voucher\n                        ")
+                  _vm._v(" Voucher\n                    ")
                 ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "li",
+              [
+                _c(
+                  "router-link",
+                  { attrs: { to: { name: "createTransaction" } } },
+                  [
+                    _c("i", { staticClass: "metismenu-icon pe-7s-loop" }),
+                    _vm._v(" Transaction\n                    ")
+                  ]
+                )
               ],
               1
             )
