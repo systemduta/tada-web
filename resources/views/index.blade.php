@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="Maesa Customer retention admin">
     <meta name="msapplication-tap-highlight" content="no">
-    <link href="{{url('layout_assets/css/main.css')}}" rel="stylesheet">
+{{--    <link href="{{url('layout_assets/css/main.css')}}" rel="stylesheet">--}}
 {{--    <link href="{{url('layout_assets/css/auth_style.css')}}" rel="stylesheet">--}}
 {{--    <script src="{{url('assets/js/axios.min.js')}}"></script>--}}
 </head>
