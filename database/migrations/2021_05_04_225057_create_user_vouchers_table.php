@@ -16,6 +16,7 @@ class CreateUserVouchersTable extends Migration
         Schema::create('user_vouchers', function (Blueprint $table) {
             $table->id();
             $table->integer('transaction_id');
+            $table->integer('user_voucher_status_id');
             $table->string('qr_code');
             $table->integer('code');
             $table->boolean('status');
