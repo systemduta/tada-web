@@ -30,8 +30,9 @@ class VoucherController extends Controller
      */
     public function index()
     {
+        $merchant_id = Merchant::where('user_id', auth()->guard('api')->user()->id)->first()->id;
         try {
-            $response = Voucher::where('merchant_id', request()->query("merchant_id"))->get();
+            $response = Voucher::where('merchant_id', $merchant_id)->get();
         } catch (Exception $e) {
             $this->code = 500;
             $this->message = $e->getMessage();
@@ -41,13 +42,14 @@ class VoucherController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in store.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
     public function store(Request $request)
     {
+        $merchant = Merchant::where('user_id', auth()->guard('api')->user()->id)->first();
         try {
             $background = $request->file('background');
             $background->move('merchant/voucher/background', $background->getClientOriginalName());
@@ -55,7 +57,7 @@ class VoucherController extends Controller
             $response = Voucher::create([
                 'name' => $request->name,
                 'description' => $request->description,
-                'merchant_id' => Merchant::where('user_id', auth()->guard('api')->user()->id)->first()->id,
+                'merchant_id' => $merchant ? $merchant->id : null,
                 'min_transaction' => $request->min_transaction,
                 'value' => $request->value,
                 'expiration' => $request->expiration,
@@ -93,7 +95,7 @@ class VoucherController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in store.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
@@ -134,7 +136,7 @@ class VoucherController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from store.
      *
      * @param $id
      * @return void

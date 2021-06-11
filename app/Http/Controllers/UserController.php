@@ -62,7 +62,7 @@ class UserController extends Controller
         }
 
         $this->message = "Sukses mendaftar akun, silahkan cek email untuk verifikasi";
-        Mail::to($request->email)->send(new EmailCodeVerification($code));
+//        Mail::to($request->email)->send(new EmailCodeVerification($code));
 
         return $user;
     }
@@ -106,6 +106,7 @@ class UserController extends Controller
             $this->message = $e->getMessage();
             $response = [];
         }
+
         return Api::apiRespond($this->code, $response, $this->message);
     }
 
@@ -220,7 +221,7 @@ class UserController extends Controller
     }
 
     public function reset_password(){
-        
+
     }
 
     public function logout()
