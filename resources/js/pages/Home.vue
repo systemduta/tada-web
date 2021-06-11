@@ -42,6 +42,6 @@ export default {
 </script>
 
 <style scoped>
-/*@import 'http://tada-api.test/layout_assets/css/main.css';*/
-@import 'https://tada.duatanganindonesia.com/layout_assets/css/main.css';
+@import 'http://tada-api.test/layout_assets/css/main.css';
+/*@import 'https://tada.duatanganindonesia.com/layout_assets/css/main.css';*/
 </style>

@@ -39,7 +39,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Sidebar"
+  name: "Sidebar",
+  methods: {
+    isActive: function isActive(menuItem) {
+      return this.$route.name === menuItem;
+    }
+  }
 });
 
 /***/ }),
@@ -192,7 +197,7 @@ var render = function() {
                 _c(
                   "router-link",
                   {
-                    staticClass: "mm-active",
+                    class: { "mm-active": _vm.isActive("dashboard") },
                     attrs: { to: { name: "dashboard" } }
                   },
                   [
@@ -207,10 +212,17 @@ var render = function() {
             _c(
               "li",
               [
-                _c("router-link", { attrs: { to: { name: "voucherIndex" } } }, [
-                  _c("i", { staticClass: "metismenu-icon pe-7s-cash" }),
-                  _vm._v(" Voucher\n                    ")
-                ])
+                _c(
+                  "router-link",
+                  {
+                    class: { "mm-active": _vm.isActive("indexVoucher") },
+                    attrs: { to: { name: "indexVoucher" } }
+                  },
+                  [
+                    _c("i", { staticClass: "metismenu-icon pe-7s-cash" }),
+                    _vm._v(" Voucher\n                    ")
+                  ]
+                )
               ],
               1
             ),
@@ -220,7 +232,10 @@ var render = function() {
               [
                 _c(
                   "router-link",
-                  { attrs: { to: { name: "createTransaction" } } },
+                  {
+                    class: { "mm-active": _vm.isActive("createTransaction") },
+                    attrs: { to: { name: "createTransaction" } }
+                  },
                   [
                     _c("i", { staticClass: "metismenu-icon pe-7s-loop" }),
                     _vm._v(" Transaction\n                    ")

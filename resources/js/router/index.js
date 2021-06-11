@@ -5,10 +5,11 @@ import Home from '../pages/Home.vue';
 import Login from '../pages/auth/Login.vue';
 import Register from "../pages/auth/Register";
 import EmailValidation from "../pages/auth/EmailValidation";
-import VoucherIndex from "../pages/vouchers/VoucherIndex";
+import IndexVoucher from "../pages/vouchers/IndexVoucher";
 import Store from '../store';
 import AddEditVoucher from "../pages/vouchers/AddEditVoucher";
 import CreateTransaction from "../pages/transactions/CreateTransaction";
+import ShowVoucher from "../pages/vouchers/ShowVoucher";
 
 let routes = [
     {
@@ -24,20 +25,26 @@ let routes = [
             },
             {
                 path: '/voucher',
-                component: VoucherIndex,
-                name: 'voucherIndex',
+                component: IndexVoucher,
+                name: 'indexVoucher',
                 meta: {requiresAuth: true},
             },
             {
                 path: '/voucher/add',
                 component: AddEditVoucher,
-                name: 'voucherAdd',
+                name: 'addVoucher',
                 meta: {requiresAuth: true},
             },
             {
                 path: '/voucher/edit/:id',
                 component: AddEditVoucher,
-                name: 'voucherEdit',
+                name: 'editVoucher',
+                meta: {requiresAuth: true},
+            },
+            {
+                path: '/voucher/detail/:id',
+                component: ShowVoucher,
+                name: 'showVoucher',
                 meta: {requiresAuth: true},
             },
             {

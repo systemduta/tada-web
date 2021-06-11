@@ -5,17 +5,17 @@
                 <ul class="vertical-nav-menu">
                     <li class="app-sidebar__heading">General</li>
                     <li>
-                        <router-link :to="{ name: 'dashboard'}" class="mm-active">
+                        <router-link :to="{ name: 'dashboard'}" :class="{ 'mm-active': isActive('dashboard') }">
                             <i class="metismenu-icon pe-7s-rocket"></i> Dashboard
                         </router-link>
                     </li>
                     <li>
-                        <router-link :to="{ name: 'voucherIndex'}">
+                        <router-link :to="{ name: 'indexVoucher'}" :class="{ 'mm-active': isActive('indexVoucher') }">
                             <i class="metismenu-icon pe-7s-cash"></i> Voucher
                         </router-link>
                     </li>
                     <li>
-                        <router-link :to="{ name: 'createTransaction'}">
+                        <router-link :to="{ name: 'createTransaction'}" :class="{ 'mm-active': isActive('createTransaction') }">
                             <i class="metismenu-icon pe-7s-loop"></i> Transaction
                         </router-link>
                     </li>
@@ -27,7 +27,12 @@
 
 <script>
 export default {
-    name: "Sidebar"
+    name: "Sidebar",
+    methods: {
+        isActive(menuItem) {
+            return this.$route.name === menuItem;
+        }
+    }
 }
 </script>
 

@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <div class="main-card mb-3 card">
                         <div class="card-header">
-                            Add Voucher
+                            {{ this.$route.params.id ? 'Edit' : 'Add' }} Voucher
                         </div>
                         <div class="card-body">
                             <form class="" @submit.prevent="storeData()">
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="position-relative form-group">
                                     <label for="voucherExpiration" class="">Expiration</label>
-                                    <input name="voucherExpiration" id="voucherExpiration" type="number" class="form-control" v-model="payload.expiration">
+                                    <input name="voucherExpiration" id="voucherExpiration" type="number" class="form-control" v-model="payload.expiration" :disabled="this.$route.params.id">
                                 </div>
                                 <div class="position-relative form-group">
                                     <label for="voucherBackground" class="">Background</label>

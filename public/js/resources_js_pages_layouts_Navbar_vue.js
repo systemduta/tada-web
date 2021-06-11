@@ -42,6 +42,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Navbar",
   methods: {
@@ -148,6 +179,10 @@ var render = function() {
   return _c("div", { staticClass: "app-header header-shadow" }, [
     _vm._m(0),
     _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
     _c("div", { staticClass: "app-header__content" }, [
       _c("div", { staticClass: "app-header-left" }),
       _vm._v(" "),
@@ -155,7 +190,7 @@ var render = function() {
         _c("div", { staticClass: "header-btn-lg pr-0" }, [
           _c("div", { staticClass: "widget-content p-0" }, [
             _c("div", { staticClass: "widget-content-wrapper" }, [
-              _vm._m(1),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "widget-subheading" }, [
                 _c(
@@ -185,9 +220,67 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "app-header__logo" }, [
-      _c("h4", [_vm._v("Maesa")]),
+      _c("h4", [_vm._v("Maesa Reward")]),
       _vm._v(" "),
-      _c("div", { staticClass: "app-header__mobile-menu" })
+      _c("div", { staticClass: "header__pane ml-auto" }, [
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "hamburger close-sidebar-btn hamburger--elastic",
+              attrs: { type: "button", "data-class": "closed-sidebar" }
+            },
+            [
+              _c("span", { staticClass: "hamburger-box" }, [
+                _c("span", { staticClass: "hamburger-inner" })
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "app-header__mobile-menu" }, [
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "hamburger hamburger--elastic mobile-toggle-nav",
+            attrs: { type: "button" }
+          },
+          [
+            _c("span", { staticClass: "hamburger-box" }, [
+              _c("span", { staticClass: "hamburger-inner" })
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "app-header__menu" }, [
+      _c("span", [
+        _c(
+          "button",
+          {
+            staticClass:
+              "btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav",
+            attrs: { type: "button" }
+          },
+          [
+            _c("span", { staticClass: "btn-icon-wrapper" }, [
+              _c("i", { staticClass: "fa fa-ellipsis-v fa-w-6" })
+            ])
+          ]
+        )
+      ])
     ])
   },
   function() {
